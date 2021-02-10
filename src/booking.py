@@ -31,10 +31,15 @@ def book(conn,cursor):
             print("Booking seat please wait.....")
             cursor.execute('UPDATE users SET balance = {bal} WHERE uid=\'{id}\' and pass = \'{password}\''.format(bal = balance-price,id=uid,password = password))
             conn.commit()
+            cursor.execute('insert into booking values(\'{uid}\',{train},{num})'.format(uid=uid,train=train_id,num=num))
+            conn.commit()
+            cursor.execute('UPDATE trains SET  seats_res = {seats} WHERE train_id={train}'.format(seats=row[4]+num,train=train_id))
+            conn.commit()
+            print("Remaining Balance: ",balance-price)
         else:
             print("Insufficient balance")
     else:
         print("\nOnly "+str(avail_seats)+' Seats are available')
 
-    print("Remaining Balance: ",balance-price)
+ 
     table.clear()
