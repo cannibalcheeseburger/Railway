@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<body>
+    <form action="/avail" method="post">
+        <input type="text" name="date"></input>
+        <input type="submit" value="search"></input>
+    </form>
+    <table border=1>
+        <thead>
+            <td>train id</td>
+            <td>source</td>
+            <td>destination</td>
+            <td>total seats</td>
+            <td>reserved seats</td>
+            <td>type</td>
+            <td>cost</td>
+            <td>date</td>
+
+        </thead>
+
+        {% for row in rows %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td> {{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+            <td>{{row[5]}}</td>
+            <td> {{row[6]}}</td>
+            <td>{{row[7]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <a href="/">Go back to home page</a>
+
+</body>
+
+</html>

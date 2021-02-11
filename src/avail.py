@@ -1,15 +1,10 @@
-from prettytable import PrettyTable
+import sqlite3
 
-table = PrettyTable()
-
-def Avail(cursor):
-    cursor.execute("select * from trains limit 1")
-    table.field_names = [col[0] for col in cursor.description]
-    
-    day = input("Enter date (dd-mm-yyyy):")
+def Avail(day):
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
 
     cursor.execute('SELECT * FROM trains where date=\''+ day+'\'')
     rows = cursor.fetchall()
-    table.add_rows(rows)
-    print(table)
-    table.clear()
+
+    return rows

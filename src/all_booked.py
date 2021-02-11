@@ -1,14 +1,10 @@
-from prettytable import PrettyTable
+import sqlite3
 
-table = PrettyTable()
-
-def all_book(conn,cursor):
-
+def all_book():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
     uid = 'kash'
-    table.field_names=['Booking id','Train id','Booked tickets','Source','Destination','Type','Date']
-
     cursor.execute('SELECT book_id,trains.train_id,num_booked,source,destination,type,date FROM booking,trains where trains.train_id = booking.train_id and booking.uid=\'{uid}\''.format(uid=uid))
     rows = cursor.fetchall()
-    table.add_rows(rows)
-    print(table)
-    table.clear()
+    conn.close()
+    return rows

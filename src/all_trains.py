@@ -1,12 +1,9 @@
-from prettytable import PrettyTable
+import sqlite3
 
-table = PrettyTable()
-
-def all_trains(cursor):
-    cursor.execute("select * from trains limit 1")
-    table.field_names = [col[0] for col in cursor.description]
+def all_trains():
+    conn = sqlite3.connect('database.db')
+    cursor = conn.cursor()
     cursor.execute('SELECT * FROM trains')
     rows = cursor.fetchall()
-    table.add_rows(rows)
-    print(table)
-    table.clear()
+    conn.close()
+    return rows
