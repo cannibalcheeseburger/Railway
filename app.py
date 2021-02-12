@@ -8,8 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    rows = all_trains.all_trains()
-    return render_template('home.html',rows = rows)
+    return render_template('home.html')
 
 @app.route('/all')
 def allTrains():
@@ -18,9 +17,12 @@ def allTrains():
 
 @app.route('/avail',methods=['POST','GET'])
 def available():
-    dat = request.form['date']
-    rows = avail.Avail(dat)
-    return render_template('avail.html',rows = rows)
+    if request.method == 'POST': 
+        dat = request.form['date']
+        rows = avail.Avail(dat)
+        return render_template('avail.html',rows=rows)
+    else:
+        return render_template('avail.html')
 
 
 
@@ -41,5 +43,5 @@ def cancelling():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug = True)
 
