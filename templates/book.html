@@ -3,6 +3,11 @@
 
 <body>
 
+    <form action="/book" method="post">
+        <input type="text" name="train_id"></input>
+        <input type="text" name="count"></input>
+        <input type="submit" value="search train"></input>
+    </form>
     <table border=1>
         <thead>
             <th>train id</th>
@@ -16,19 +21,16 @@
 
         </thead>
 
-        {% for row in rows %}
+
         <tr>
-            <td>{{row[0]}}</td>
-            <td>{{row[1]}}</td>
-            <td> {{row[2]}}</td>
-            <td>{{row[3]}}</td>
-            <td>{{row[4]}}</td>
-            <td>{{row[5]}}</td>
-            <td> {{row[6]}}</td>
-            <td>{{row[7]}}</td>
+            {% for el in rows %}
+            <td>{{el}}</td>
+            {% endfor %}
         </tr>
-        {% endfor %}
+
     </table>
+    <p>Total price of tickets: {{tot}}
+    </p>
 
     <a href="/">Go back to home page</a>
 

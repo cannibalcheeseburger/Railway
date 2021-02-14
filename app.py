@@ -24,17 +24,20 @@ def available():
     else:
         return render_template('avail.html')
 
-
-
 @app.route('/all_booked')
 def booked():
     rows = all_booked.all_book()
     return render_template('all_booked.html',rows = rows)
 
-@app.route('/book')
+@app.route('/book',methods = ['POST','GET'])
 def bookings():
-    rows = all_trains.all_trains()
-    return render_template('home.html',rows = rows)
+    if request.method == 'POST': 
+        tid = request.form['train_id']
+        count = int(request.form['count'] )      
+        rows = booking.book(tid,count)
+        return render_template('book.html',rows=rows,tot = count*rows[6])
+    else:
+        return render_template('book.html')
 
 @app.route('/cancel')
 def cancelling():
