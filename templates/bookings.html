@@ -3,10 +3,9 @@
 
 <body>
 
-    <form action="/book" method="post">
-        <input type="text" name="train_id"></input>
-        <input type="text" name="count"></input>
-        <input type="submit" value="search train"></input>
+    <form action="{{url_for('bookings')}}" method="post">
+        {{form.train_id.label}} {{form.train_id}} {{form.count.label}} {{form.count}}
+        <input type="submit" value="submit">
     </form>
     <table border=1>
         <thead>
@@ -32,7 +31,7 @@
     <p>Total price of tickets: {{tot}}
     </p>
 
-    <a href="/">Go back to home page</a>
+    <a href="/ ">Go back to home page</a>
 
 </body>
 
