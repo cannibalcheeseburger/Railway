@@ -131,3 +131,5 @@ dmypy.json
 *database.sqbpro
 *.ipynb
 .vscode
+*.csv
+*.pdf
