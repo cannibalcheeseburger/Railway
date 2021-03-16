@@ -1,4 +1,4 @@
-from src import avail,all_trains,booking,all_booked,cancel,forms
+from src import avail,all_trains,booking,all_booked,cancel,forms,register
 from flask import Flask
 from flask import render_template
 from flask import request, redirect
@@ -20,6 +20,16 @@ def login():
     if form.validate_on_submit():
         return'<h1>The username is {}. The password is {}.'.format(form.username.data,form.password.data)
     return render_template('login.html',form = form)
+
+
+@app.route('/register',methods=['GET','POST'])
+def reg():
+    form  = forms.RegisterForm()
+    if form.validate_on_submit():
+        register.Reg(form.username.data,form.password.data)
+        return'<h1>You have been reigstered as {}.</h1>'.format(form.username.data)
+    return render_template('Register.html',form = form)
+
 
 @app.route('/all')
 def allTrains():

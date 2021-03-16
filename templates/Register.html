@@ -2,16 +2,14 @@
 <html>
 
 <body>
-    <h1>Login Form</h1>
-    <form method="POST" action="{{url_for('login')}}">
+    <h1>Register Form</h1>
+    <form method="POST" action="{{url_for('reg')}}">
         {{form.csrf_token}}{{form.username.label}} {{form.username}}
         <ul>{% for error in form.username.errors %}
             <li style="color:red;">{{error}}</li>{% endfor %}
         </ul> {{form.password.label}}{{form.password}}
         <input type="submit" value="Submit">
     </form>
-    Register as
-    <a href="/register">new user</a>
 </body>
 
 </html>
