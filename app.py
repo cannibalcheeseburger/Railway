@@ -3,12 +3,13 @@ from flask import Flask,flash
 from flask import render_template,url_for
 from flask import request, redirect
 import forms
-
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'Thisisasecret!'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://database.db'
 
-
+db = SQLAlchemy(app)
 
 @app.route('/')
 def home():
