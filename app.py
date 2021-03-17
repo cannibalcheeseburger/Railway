@@ -1,8 +1,8 @@
-from src import avail,all_trains,booking,all_booked,cancel,forms,register
-from flask import Flask
-from flask import render_template
+from src import avail,all_trains,booking,all_booked,cancel,register
+from flask import Flask,flash
+from flask import render_template,url_for
 from flask import request, redirect
-
+import forms
 
 
 app = Flask(__name__)
@@ -14,11 +14,13 @@ app.config['SECRET_KEY'] = 'Thisisasecret!'
 def home():
     return render_template('home.html')
 
-@app.route('/form',methods=['GET','POST'])
+@app.route('/login',methods=['GET','POST'])
 def login():
     form  = forms.LoginForm()
     if form.validate_on_submit():
-        return'<h1>The username is {}. The password is {}.'.format(form.username.data,form.password.data)
+        flash(f'You have logged in!','success')
+        #register.Reg(form.username.data,form.password.data)
+        return redirect(url_for('home'))
     return render_template('login.html',form = form)
 
 
@@ -26,8 +28,9 @@ def login():
 def reg():
     form  = forms.RegisterForm()
     if form.validate_on_submit():
-        register.Reg(form.username.data,form.password.data)
-        return'<h1>You have been reigstered as {}.</h1>'.format(form.username.data)
+        flash(f'Account created for {form.username.data}!','success')
+        #register.Reg(form.username.data,form.password.data)
+        return redirect(url_for('home'))
     return render_template('Register.html',form = form)
 
 

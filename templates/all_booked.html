@@ -1,35 +1,28 @@
-<!doctype html>
-<html>
+{% extends "layout.html" %} {% block content%}
 
-<body>
+<table border=1>
+    <thead>
+        <th>Booking id</th>
+        <th>Train id</th>
+        <th>Booked TIckets</th>
+        <th>Source</th>
+        <th>Destination</th>
+        <th>type</th>
+        <th>date</th>
 
-    <table border=1>
-        <thead>
-            <th>Booking id</th>
-            <th>Train id</th>
-            <th>Booked TIckets</th>
-            <th>Source</th>
-            <th>Destination</th>
-            <th>type</th>
-            <th>date</th>
+    </thead>
 
-        </thead>
+    {% for row in rows %}
+    <tr>
+        <td>{{row[0]}}</td>
+        <td>{{row[1]}}</td>
+        <td> {{row[2]}}</td>
+        <td>{{row[3]}}</td>
+        <td>{{row[4]}}</td>
+        <td>{{row[5]}}</td>
+        <td> {{row[6]}}</td>
+    </tr>
+    {% endfor %}
+</table>
 
-        {% for row in rows %}
-        <tr>
-            <td>{{row[0]}}</td>
-            <td>{{row[1]}}</td>
-            <td> {{row[2]}}</td>
-            <td>{{row[3]}}</td>
-            <td>{{row[4]}}</td>
-            <td>{{row[5]}}</td>
-            <td> {{row[6]}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <a href="/">Go back to home page</a>
-
-</body>
-
-</html>
+<a href="/">Go back to home page</a> {% endblock content %}

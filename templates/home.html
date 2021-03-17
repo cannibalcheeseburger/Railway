@@ -1,14 +1,8 @@
-<!doctype html>
-<html>
-
-<body>
-    <h1>Home Page</h1>
-    <a href="/all">All</a>
-    <a href="/all_booked">Booked</a>
-    <a href="/avail">Avail</a>
-    <a href="/book">Book ticket</a>
-    <a href="/form">Login</a>
-
-</body>
-
-</html>
+{% extends "layout.html" %} {% block content%}
+<h1>
+    Home Page</h1>
+<a href="/all">All</a>
+<a href="/all_booked">Booked</a>
+<a href="/avail">Avail</a>
+<a href="/book">Book ticket</a>
+<a href="/login">Login</a> {% endblock content %}

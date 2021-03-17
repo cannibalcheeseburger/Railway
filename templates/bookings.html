@@ -1,38 +1,31 @@
-<!doctype html>
-<html>
+{% extends "layout.html" %} {% block content%}
 
-<body>
+<form action="{{url_for('bookings')}}" method="post">
+    {{form.train_id.label}} {{form.train_id}} {{form.count.label}} {{form.count}}
+    <input type="submit" value="submit">
+</form>
+<table border=1>
+    <thead>
+        <th>train id</th>
+        <th>source</th>
+        <th>destination</th>
+        <th>total seats</th>
+        <th>reserved seats</th>
+        <th>type</th>
+        <th>cost</th>
+        <th>date</th>
 
-    <form action="{{url_for('bo')}}" method="post">
-        {{form.train_id.label}} {{form.train_id}} {{form.count.label}} {{form.count}}
-        <input type="submit" value="submit">
-    </form>
-    <table border=1>
-        <thead>
-            <th>train id</th>
-            <th>source</th>
-            <th>destination</th>
-            <th>total seats</th>
-            <th>reserved seats</th>
-            <th>type</th>
-            <th>cost</th>
-            <th>date</th>
-
-        </thead>
+    </thead>
 
 
-        <tr>
-            {% for el in rows %}
-            <td>{{el}}</td>
-            {% endfor %}
-        </tr>
+    <tr>
+        {% for el in rows %}
+        <td>{{el}}</td>
+        {% endfor %}
+    </tr>
 
-    </table>
-    <p>Total price of tickets: {{tot}}
-    </p>
+</table>
+<p>Total price of tickets: {{tot}}
+</p>
 
-    <a href="/ ">Go back to home page</a>
-
-</body>
-
-</html>
+<a href="/ ">Go back to home page</a> {% endblock content %}

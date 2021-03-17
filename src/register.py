@@ -7,3 +7,4 @@ def Reg(user,passwd):
     cursor.execute('INSERT into users values(\'{}\',\'{}\',0)'.format(user,passwd))
     conn.commit()
 
+    conn.close()
