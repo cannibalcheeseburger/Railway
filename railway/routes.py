@@ -4,6 +4,8 @@ from flask import request, redirect
 from railway.models import Users,Trains,Booking
 from railway import forms
 from railway import app
+from flask_login import login_user,current_user,logout_user
+
 
 @app.route('/')
 def home():
@@ -11,16 +13,26 @@ def home():
 
 @app.route('/login',methods=['GET','POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form  = forms.LoginForm()
     if form.validate_on_submit():
-        flash(f'You have logged in!','success')
-        #register.Reg(form.username.data,form.password.data)
-        return redirect(url_for('home'))
+        user = Users.query.filter_by(uid = form.username.data).first()
+        if user and user.password==form.password.data:
+            login_user(user=user,remember=form.remember.data)
+            flash(f'You are logged in!','success')
+            return redirect(url_for('home'))
+        
+        flash(f'Login Unsuccessful','danger')
+
     return render_template('login.html',form = form)
 
 
 @app.route('/register',methods=['GET','POST'])
 def reg():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
+
     form  = forms.RegisterForm()
     if form.validate_on_submit():
         flash(f'Account created for {form.username.data}!','success')
@@ -60,3 +72,8 @@ def bookings():
 def cancelling():
     rows = all_trains.all_trains()
     return render_template('home.html',rows = rows)
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
