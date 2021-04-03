@@ -4,7 +4,7 @@ from flask import request, redirect
 from railway.models import Users,Trains,Booking
 from railway import forms
 from railway import app
-from flask_login import login_user,current_user,logout_user
+from flask_login import login_user,current_user,logout_user, login_required
 
 
 @app.route('/')
@@ -20,8 +20,9 @@ def login():
         user = Users.query.filter_by(uid = form.username.data).first()
         if user and user.password==form.password.data:
             login_user(user=user,remember=form.remember.data)
+            next_page = request.args.get('next')
             flash(f'You are logged in!','success')
-            return redirect(url_for('home'))
+            return redirect(next_page) if next_page else redirect(url_for('home'))
         
         flash(f'Login Unsuccessful','danger')
 
@@ -77,3 +78,8 @@ def cancelling():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html',title='Account')
