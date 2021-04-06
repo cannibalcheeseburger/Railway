@@ -1,28 +1,27 @@
 {% extends "layout.html" %} {% block content%}
 
-<table border=1>
-    <thead>
-        <th>Booking id</th>
-        <th>Train id</th>
-        <th>Booked TIckets</th>
-        <th>Source</th>
-        <th>Destination</th>
-        <th>type</th>
-        <th>date</th>
+<div class=" p-5">
 
-    </thead>
+    <table class="table table-borderless table-hover">
+        <thead>
+            <th>Train id</th>
+            <th>Booked TIckets</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>type</th>
+            <th>date</th>
 
-    {% for row in rows %}
-    <tr>
-        <td>{{row[0]}}</td>
-        <td>{{row[1]}}</td>
-        <td> {{row[2]}}</td>
-        <td>{{row[3]}}</td>
-        <td>{{row[4]}}</td>
-        <td>{{row[5]}}</td>
-        <td> {{row[6]}}</td>
-    </tr>
-    {% endfor %}
-</table>
-
+        </thead>
+        {% for booking in Bookings %}
+        <tr>
+            <td>{{booking.trains.id}}</td>
+            <td>{{booking.num_booked}}</td>
+            <td>{{booking.trains.source}}</td>
+            <td>{{booking.trains.destination}}</td>
+            <td>{{booking.trains.types}}</td>
+            <td> {{booking.trains.date}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 <a href="/">Go back to home page</a> {% endblock content %}
