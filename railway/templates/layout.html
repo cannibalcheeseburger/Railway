@@ -30,12 +30,18 @@
                         {% if not home %}
                         <a class="nav-item nav-link " href="{% url 'home' %}">Home</a> {% endif %}
                         <a class="nav-item nav-link " href="{% url 'all_trains' %}">All Trains</a>
-                        <a class="nav-item nav-link " href="{% url 'all_booked' %}">Bookings</a>
+                        <a class="nav-item nav-link " href="{% url 'search' %}">Search</a>
+
 
                     </div>
                     <!-- Navbar Right Side -->
                     <div class="navbar-nav ">
-
+                        {% if user.is_authenticated %}
+                        <a class="nav-item nav-link " href="{% url 'all_booked' %}">Bookings</a>
+                        <a class="nav-item nav-link " href="{% url 'login' %}">{{request.user.username}}</a>
+                        <a class="nav-item nav-link " href="{% url 'logout' %}">Logout</a> {% else %}
+                        <a class="nav-item nav-link " href="{% url 'login' %}">Login</a>
+                        <a class="nav-item nav-link " href="{% url 'register' %}">Register</a> {% endif %}
                     </div>
                 </div>
             </div>

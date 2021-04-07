@@ -1,13 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.views.generic import TemplateView
 from .filters import TrainsFilter
 from django.contrib.auth.forms import UserCreationForm
-
+from .forms import CreateUserForm
+from django.contrib.auth import authenticate, login,logout
 # Create your views here.
 from .models import Users,Trains,Booking
-#from railway import forms
+from django.views.decorators.csrf import csrf_protect
+
 
 class HomeTemplateView(TemplateView):
     template_name = 'home.html'
@@ -25,20 +27,33 @@ class TrainsDetailView(DetailView):
     context_object_name = 'train'
     
 def register_page(request):
-    form = UserCreationForm()
+    form = CreateUserForm()
 
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+            redirect('login')
 
     context = {'form':form}
     return render(request,'Register.html',context)
 
+@csrf_protect
 def login_page(request):
-    context = {'asd':'asd'}
+    if request.method =='POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request,username = username,password = password)
+
+        if user is not None:
+            login(request,user)
+            return redirect('home')
+    context = {}
     return render(request,'login.html',context)
 
+def logout_user(request):
+    logout(request)
+    return redirect('home')
 
 def booked(request):
     context = {'Bookings' : Booking.objects.filter(users='Kash')}
