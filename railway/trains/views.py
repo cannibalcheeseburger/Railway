@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView
 from django.views.generic import DetailView
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView,View
 from .filters import TrainsFilter
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm
@@ -44,20 +44,44 @@ def login_page(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request,username = username,password = password)
-
         if user is not None:
             login(request,user)
             return redirect('home')
     context = {}
     return render(request,'login.html',context)
 
-def logout_user(request):
-    logout(request)
-    return redirect('home')
+class LoginView(View):
+    def post(self, request):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+
+                return HttpResponseRedirect('/form')
+            else:
+                return HttpResponse("Inactive user.")
+        else:
+            return HttpResponseRedirect(settings.LOGIN_URL)
+
+        return render(request, "index.html")
+
+class LogoutUserView(View):
+    def get(self,request):
+        logout(request)
+        return redirect('home')
 
 def booked(request):
     context = {'Bookings' : Booking.objects.filter(users='Kash')}
     return render(request,'all_booked.html',context)
+
+class Bookings(ListView):
+    context_object_name='Bookings'
+    template_name='all_booked.html'
+    def get_queryset(self):
+        return Booking.objects.filter(users = self.request.user.username)
 
 def search(request):
     train = Trains.objects.all()
