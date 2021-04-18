@@ -7,3 +7,7 @@ class CreateUserForm(UserCreationForm):
         model = Users
         fields = ['uid','email','password1','password2']
 
+class RegisterForm(forms.ModelForm):
+    class Meta:
+        model = Users
+        fields = ['uid','email','password1','password2']

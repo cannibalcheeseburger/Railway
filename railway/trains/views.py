@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect,HttpResponse
 from django.views.generic import ListView
 from django.views.generic import DetailView
 from django.views.generic import TemplateView,View
 from .filters import TrainsFilter
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm
+from .forms import CreateUserForm,RegisterForm
 from django.contrib.auth import authenticate, login,logout
 # Create your views here.
 from .models import Users,Trains,Booking
@@ -27,13 +27,13 @@ class TrainsDetailView(DetailView):
     context_object_name = 'train'
     
 def register_page(request):
-    form = CreateUserForm()
+    form = RegisterForm()
 
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = RegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            redirect('login')
+            return redirect('login')
 
     context = {'form':form}
     return render(request,'Register.html',context)
@@ -73,9 +73,6 @@ class LogoutUserView(View):
         logout(request)
         return redirect('home')
 
-def booked(request):
-    context = {'Bookings' : Booking.objects.filter(users='Kash')}
-    return render(request,'all_booked.html',context)
 
 class Bookings(ListView):
     context_object_name='Bookings'
@@ -92,3 +89,27 @@ def search(request):
         'myFilter':myFilter,
     }
     return render(request,'search.html',context)
+
+
+class profile(DetailView):
+    template_name='profile.html'
+    model=Users
+    slug_field='uid'
+    slug_url_kwarg='uid'
+    context_object_name='user'
+
+class BookingCancelDetailView(DetailView):
+    context_object_name = 'booking'
+    template_name = 'booking_cancel.html'
+    def get_queryset(self):
+        return Booking.objects.filter(users = self.request.user.username)
+
+
+def confirm_cancel(request,pk):
+    book = Booking.objects.get(id = pk)
+    cost = book.num_booked * book.trains.cost
+    user_in = book.users
+    user_in.balance = user_in.balance+ cost
+    user_in.save()
+    book.delete()
+    return redirect('all_booked')

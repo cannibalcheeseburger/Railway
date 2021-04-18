@@ -28,7 +28,7 @@ class Users(models.Model):
 
     def __str__(self):
         return self.uid
-
+ 
 class Booking(models.Model):
     id = models.AutoField(primary_key=True)
     num_booked = models.IntegerField()
@@ -36,3 +36,4 @@ class Booking(models.Model):
     trains = models.ForeignKey(Trains,null=True,on_delete=models.SET_NULL)
     def __str__(self):
         return str(self.id)
+
