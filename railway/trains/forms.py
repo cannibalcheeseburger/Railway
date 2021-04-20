@@ -5,9 +5,13 @@ from .models import Users
 class CreateUserForm(UserCreationForm):
     class Meta:
         model = Users
-        fields = ['uid','email','password1','password2']
+        fields = ['username','email','password']
 
 class RegisterForm(forms.ModelForm):
     class Meta:
         model = Users
-        fields = ['uid','email','password1','password2']
+        fields = ['username','email','password']
+
+
+class NumberForm(forms.Form):
+    number_book = forms.IntegerField(max_value=100)

@@ -4,7 +4,7 @@ from django.views.generic import DetailView
 from django.views.generic import TemplateView,View
 from .filters import TrainsFilter
 from django.contrib.auth.forms import UserCreationForm
-from .forms import CreateUserForm,RegisterForm
+from .forms import CreateUserForm,RegisterForm,NumberForm
 from django.contrib.auth import authenticate, login,logout
 # Create your views here.
 from .models import Users,Trains,Booking
@@ -25,6 +25,7 @@ class TrainsDetailView(DetailView):
     model = Trains
     template_name = 'train_details.html'
     context_object_name = 'train'
+
     
 def register_page(request):
     form = RegisterForm()
@@ -94,8 +95,8 @@ def search(request):
 class profile(DetailView):
     template_name='profile.html'
     model=Users
-    slug_field='uid'
-    slug_url_kwarg='uid'
+    slug_field='username'
+    slug_url_kwarg='username'
     context_object_name='user'
 
 class BookingCancelDetailView(DetailView):
@@ -113,3 +114,23 @@ def confirm_cancel(request,pk):
     user_in.save()
     book.delete()
     return redirect('all_booked')
+
+def confirm_booking(request,pk):
+    train =Trains.objects.get(id = pk)
+    user = Users.objects.get(username = request.user.username)
+    form = NumberForm()
+
+    if request.method =='POST':
+        form = NumberForm(request.POST)
+
+        if form.is_valid():
+            count = int(request.POST['number_book'])
+            new_booking = Booking(num_booked=count,users=user,trains=train)
+            new_booking.save()
+            cost = count * train.cost
+            user.balance = user.balance - cost
+            user.save()
+            train.seats_res = train.seats_res+count
+            train.save()
+            return redirect('all_booked')
+    return render(request,'confirm_booking.html',{'train':train,'form':form})
