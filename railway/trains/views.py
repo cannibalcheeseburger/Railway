@@ -7,13 +7,17 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import CreateUserForm,RegisterForm,NumberForm
 from django.contrib.auth import authenticate, login,logout
 # Create your views here.
+
 from .models import Users,Trains,Booking
 from django.views.decorators.csrf import csrf_protect
 
 
-class HomeTemplateView(TemplateView):
-    template_name = 'home.html'
+# class HomeTemplateView(TemplateView):
+#     template_name = 'home.html'
 
+def showHome(request):
+    context = {'isHome': True}
+    return render(request, 'home.html', context)
 
 class AllTrainsListView(ListView):
     model = Trains
@@ -82,12 +86,17 @@ class Bookings(ListView):
         return Booking.objects.filter(users = self.request.user.username)
 
 def search(request):
+    train = Trains()
+    types = train.categories
+
     train = Trains.objects.all()
-    myFilter = TrainsFilter(request.GET,queryset=train)
+    myFilter = TrainsFilter(request.GET, queryset=train)
     train = myFilter.qs
+
     context = {
         'Trains': train,
         'myFilter':myFilter,
+        'types' : types
     }
     return render(request,'search.html',context)
 

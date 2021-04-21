@@ -4,7 +4,8 @@ from .views import search,register_page,login_page,profile,BookingCancelDetailVi
 
 
 urlpatterns = [
-    path('',HomeTemplateView.as_view(),name = 'home'),
+    # path('',HomeTemplateView.as_view(),name = 'home'),
+    path('', showHome, name='home'),
     path('all/',AllTrainsListView.as_view(),name = 'all_trains'),
     path('all_booked/',Bookings.as_view(),name = 'all_booked'),
     path('trains/<int:pk>',TrainsDetailView.as_view(),name ='trains'),

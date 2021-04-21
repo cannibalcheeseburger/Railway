@@ -1,9 +1,30 @@
 {% extends "layout.html" %} {% block content%}
-<div class=" p-5">
-    <form method="get">
-        {{myFilter.form}}
-        <button class="btn btn-primary" type="submit">Search</button> </form>
-    <table class="table table-borderless table-hover">
+<div class="no-gutters search_page_main">
+
+    <div class="search_form">
+    <form method="get">     
+
+            <input  id="id_source" name="source" type="text" placeholder="Source" />
+
+            <br>
+            <input id="id_destination" name="destination" type="text" placeholder="Destination" />    
+
+            <br>
+
+            <select name="types" id="id_types">
+                {% for type in types %}
+                <option value="{{type.0}}">{{type.0}}</option>
+                {% endfor %}
+            </select>
+         <br>
+            <input id="id_date" name="date" type="date" />
+
+            <button class="btn btn-primary d-block m-3" type="submit">Search</button>
+
+    </form>
+</div>
+
+<!-- <table class="table table-borderless table-hover">
         <thead class="text-center">
             <th>Source</th>
             <th>Destination</th>
@@ -28,6 +49,11 @@
             </td>
         </tr>
         {% endfor %}
-    </table>
+    </table> -->
 </div>
+
+<script>
+
+</script>
+
 {% endblock content %}
