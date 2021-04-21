@@ -12,8 +12,6 @@ from .models import Users,Trains,Booking
 from django.views.decorators.csrf import csrf_protect
 
 
-# class HomeTemplateView(TemplateView):
-#     template_name = 'home.html'
 
 def showHome(request):
     context = {'isHome': True}
@@ -126,9 +124,12 @@ def confirm_cancel(request,pk):
 
 def confirm_booking(request,pk):
     train =Trains.objects.get(id = pk)
+    if not request.user.is_authenticated:
+        return redirect('login')
     user = Users.objects.get(username = request.user.username)
     form = NumberForm()
 
+        
     if request.method =='POST':
         form = NumberForm(request.POST)
 

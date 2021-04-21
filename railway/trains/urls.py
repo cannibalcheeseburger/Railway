@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomeTemplateView, AllTrainsListView,Bookings,TrainsDetailView,LogoutUserView
+from .views import AllTrainsListView,Bookings,TrainsDetailView,LogoutUserView,showHome
 from .views import search,register_page,login_page,profile,BookingCancelDetailView, confirm_cancel,confirm_booking
 
 
