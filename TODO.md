@@ -15,6 +15,8 @@ Cards try kro trains ke liye Search mein
 
 2. Convert to Class Based Views
 
+3. Db checks implement
+
 # Documentaions
 
 Everything
