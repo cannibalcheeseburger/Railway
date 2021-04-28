@@ -94,15 +94,6 @@ body {
 
 /* Search Page Here */
 
-.search_page_main {
-    position: relative;
-}
-
-.search_form {
-    padding: 10%;
-    position: absolute;
-    left: 30%
-}
 
 #id_source,
 #id_destination {
@@ -118,10 +109,14 @@ body {
     outline: none;
 }
 
-#id_types {
+#id_types, #id_date  {
     margin: 16px;
 }
 
-#id_date {
-    margin: 16px;
+#search_form button{
+    margin: auto;
+}
+
+.card a{
+    margin-left: 8rem;
 }
