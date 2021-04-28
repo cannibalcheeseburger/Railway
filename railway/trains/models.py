@@ -33,8 +33,8 @@ class Users(AbstractUser):
 class Booking(models.Model):
     id = models.AutoField(primary_key=True)
     num_booked = models.IntegerField()
-    users = models.ForeignKey(Users,null=True,on_delete = models.SET_NULL)
-    trains = models.ForeignKey(Trains,null=True,on_delete=models.SET_NULL)
+    users = models.ForeignKey(Users,null=True,on_delete = models.CASCADE)
+    trains = models.ForeignKey(Trains,null=True,on_delete=models.CASCADE)
     def __str__(self):
         return str(self.id)
 
