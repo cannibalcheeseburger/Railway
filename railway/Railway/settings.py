@@ -120,13 +120,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
-
 import os.path
 
 STATIC_ROOT = ''
 
 STATIC_URL = '/static/'
-AUTH_USER_MODEL = 'trains.users'
+
+STATICFILES_DIRS = ( os.path.join('static'), )
+
 
 import mimetypes
 mimetypes.add_type("text/css", ".css", True)
+
+AUTH_USER_MODEL = 'trains.users'
+
