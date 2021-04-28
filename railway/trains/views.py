@@ -87,7 +87,7 @@ def search(request):
     train = Trains()
     types = train.categories
 
-    train = Trains.objects.all()
+    train = Trains.objects.order_by('-date')
     myFilter = TrainsFilter(request.GET, queryset=train)
     train = myFilter.qs
 

@@ -14,7 +14,7 @@ class Trains(models.Model):
     seats_res = models.IntegerField()
     types = models.CharField(choices=categories,max_length=20)
     cost = models.IntegerField()
-    date = models.CharField(max_length = 20)
+    date = models.DateField()
     def __str__(self):
         return str(self.id)
 
