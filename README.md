@@ -11,11 +11,17 @@ be more specific, our system is limited in such a way that a train starting from
 particular source will have a single destination.
 ## Authors
 
- - Kashish Srivastava(185014)
- - Karan Parmar(185013)
- - Rajat Thakur(185011)
- - Aakash(185016)
+Names:
+ - Kashish Srivastava (185014)
+ - Karan Parmar (185013)
+ - Rajat Thakur (185011)
+ - Aakash (185016)
+     
+Course: CSD-327 Software Engineering LAB
 
+Date: May 6th, 2021
+
+Submitted to: Dr. Dharmendra Prasad Mahto
 ## Installation
 
 ### Build from Source
