@@ -85,7 +85,7 @@ class Bookings(ListView):
 
 def search(request):
     train = Trains()
-    types = train.categories
+    types = (('Normal','Normal'),('Express','Express'))
 
     train = Trains.objects.order_by('-date')
     myFilter = TrainsFilter(request.GET, queryset=train)
